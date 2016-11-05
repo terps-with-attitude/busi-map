@@ -46,12 +46,14 @@
   				var pos = 0;
   			for(var i = 0; i < items.length; i++){
   				if(items[i].checked){
-  					activeCategories[i] = items[i].name;
+  					activeCategories[pos++] = items[i].name;
   				}
 
   		  } 
-
-  		  createMap(activeCategories, processPlaces(pullInData()));
+          var categories = ["fast food", "fine dining", "buffet"];
+          var location = {lat: 38.907864, lng:  -77.072151};
+          pullInData(location, activeCategories, );
+  		    updateMap(activeCategories, processPlaces(places), map);
   		}
 
   	</script>
