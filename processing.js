@@ -4,10 +4,10 @@ function processPlaces(placeMap)
 {
 
 	var outputMap = new Map();
-	for (var category in placeMap.keys) 
+	for (var categoryList in placeMap.values()) 
 	{
 		var outputArray = new Array();
-	 	for (var place in placeMap.get(category)) 
+	 	for (var place in categoryList) 
 	 	{
 	 		var placeMarker = new google.maps.Marker({
 	 			map : null,	
@@ -32,7 +32,7 @@ function createMap(categoryArray, markerMap)
 
 	for(var category in categoryArray)
 	{
-		for(marker in markerMap.get(category)
+		for(marker in markerMap.get(category))
 		{
 			marker.setMap(map);
 		}
