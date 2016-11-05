@@ -22,16 +22,19 @@ function processPlaces(placeMap)
 	
 }
 
+// creates map to be displayed.
 function createMap(categoryArray, markerMap)
 {
 	var map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 12,
-		center: {lat: -33.9, lng: 151.2}
+		center: {lat: 38.907864, lng:  -77.072151}
 	});
 
 	for(var category in categoryArray)
 	{
-
+		for(marker in markerMap.get(category)
+		{
+			marker.setMap(map);
+		}
 	}
-	 
 }
