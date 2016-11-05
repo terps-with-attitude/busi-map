@@ -12,15 +12,26 @@ function pullInData() {
  	});
 
 
-	var request = { location: dc,
-					query: categories[num++]
-				  };
+	// var request = { location: dc,
+	// 				query: categories[num++]
+	// 			  };
 
 
 	var service = new google.maps.places.PlacesService(mapa);
 
 
-	for (var i = 0; i < categories.length;i++) {
+	// for (var i = 0; i < categories.length;i++) {
+	// 	service.textSearch(request, callback);
+	// }
+
+
+	for(var category in categories)
+	{
+		var request = {
+			location : dc,
+			query : category
+		}
+
 		service.textSearch(request, callback);
 	}
 
@@ -38,6 +49,6 @@ function pullInData() {
 
 function callback(results, status) {
 	if (status == google.maps.places.PlacesServiceStatus.OK) {
-		dict.set(categories[num],results);
+		dict.set(category,results);
    }
 }
