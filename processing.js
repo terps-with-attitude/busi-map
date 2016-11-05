@@ -32,7 +32,7 @@ function createMap(categoryArray, markerMap)
 
 	for(var category in categoryArray)
 	{
-		for(marker in markerMap.get(category)
+		for(marker in markerMap.get(category))
 		{
 			marker.setMap(map);
 		}
