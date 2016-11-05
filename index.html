@@ -79,11 +79,12 @@
 
   	<!-- this is where the map is created and added-->
   <script type="text/javascript">
-  	
-  	 var map;
-      function initMap() {
+	var categories = ["fast food", "fine dining", "buffet"];
+ 	var map;
+	var location = {lat: 38.907864, lng:  -77.072151};
+    function initMap() {
         map = new google.maps.Map(document.getElementById('map-container'), {
-          center: {lat: 38.907864, lng:  -77.072151},
+          center: location,
           zoom: 12
         });
       }

@@ -72,12 +72,14 @@
 
         for (category in categories) {
         	//console.log(categories[category]);
+
         	var request = {
 				location: dcLocation,
 				type: "restaurant",
 				radius: 2000,
 				query: categories[category]
         	}
+
       		service.textSearch(request, callbackCreator(categories[category], dict));
       		// for(place in dict.get(categories[category]))
       		// {

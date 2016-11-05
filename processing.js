@@ -48,7 +48,6 @@ function processPlaces(placeDict)
 
 	var outputDict = new Map();
 
-	setTimeout(console.log(placeDict), 1000);
 	for (var category in placeDict.keys()) 
 	{
 
@@ -63,7 +62,6 @@ function processPlaces(placeDict)
 	 	}
 	 	outputDict.set(placeDict.keys()[category], outputArray);
 	}
-
 	return outputDict;
 	
 }
@@ -72,7 +70,6 @@ function processPlaces(placeDict)
 function updateMap(categoryArray, markerMap, googleMap)
 {
 	var map =  googleMap;
-
 
 	for(var category in categoryArray)
 	{
