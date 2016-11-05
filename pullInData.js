@@ -1,54 +1,32 @@
-var categories = new Array("fast food", "fine dining", "buffet");
-var dc, mapa, dict;
-var num = 0;
+		var googleMap;
+		var infowindow;
+		var dict = new Map();
+		var received = true;
 
-function pullInData() {
+      	function pullInData(location, map, categories) {
+        var dcLocation = location;
 
-	dict = new Map();
-	dc = new google.maps.LatLng(38.907864,-77.072151);
-	mapa = new google.maps.Map(document.getElementById('mapa'), {
-	center: dc,
-	zoom: 15
- 	});
+        googleMap = map;
 
+        infowindow = new google.maps.InfoWindow();
+        var service = new google.maps.places.PlacesService(map);
 
-	// var request = { location: dc,
-	// 				query: categories[num++]
-	// 			  };
+        for (category in categories) {
+        	var request = {
+				location: dcLocation,
+				type: "restaurant",
+				radius: 2000,
+				query: categories[category]
+        	}
+      		service.textSearch(request, callbackCreator(categories[category]));
+        }
+      }
 
-
-	var service = new google.maps.places.PlacesService(mapa);
-
-
-	// for (var i = 0; i < categories.length;i++) {
-	// 	service.textSearch(request, callback);
-	// }
-
-
-	for(var category in categories)
-	{
-		var request = {
-			location : dc,
-			query : category
-		}
-
-		service.textSearch(request, callback);
-	}
-
-
-	var mapIter = dict.keys();
-
-
-
-
-	return dict;
-}
-
-
-
-
-function callback(results, status) {
-	if (status == google.maps.places.PlacesServiceStatus.OK) {
-		dict.set(category,results);
-   }
-}
+      function callbackCreator(category)
+      {
+      	return function(results, status) {
+      		if (status === google.maps.places.PlacesServiceStatus.OK) {
+          		dict.put(category, results);	
+      		}
+      	}
+      }

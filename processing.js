@@ -1,13 +1,13 @@
 
 // returns map to array of markers.
-function processPlaces(placeMap)
+function processPlaces(placeDict, categories)
 {
 
-	var outputMap = new Map();
-	for (var categoryList in placeMap.values()) 
+	var outputDict = new Map();
+	for (var category in placeDict.keys()) 
 	{
 		var outputArray = new Array();
-	 	for (var place in categoryList) 
+	 	for (var place in placeDict.get(categories[category])) 
 	 	{
 	 		var placeMarker = new google.maps.Marker({
 	 			map : null,	
@@ -15,20 +15,16 @@ function processPlaces(placeMap)
 	 		});
 	 		outputArray.push(placeMarker);
 	 	}
-	 	outputMap.set(category, outputArray);
+	 	outputDict.set(categories[category], outputArray);
 	}
-
-	return outputMap;
+	return outputDict;
 	
 }
 
-// creates map to be displayed.
-function createMap(categoryArray, markerMap)
+// updates map to be displayed.
+function updateMap(googleMap, categoryArray, markerMap)
 {
-	var map = new google.maps.Map(document.getElementById('map-container'), {
-		zoom: 12,
-		center: {lat: 38.907864, lng:  -77.072151}
-	});
+	var map = googleMap;
 
 	for(var category in categoryArray)
 	{
