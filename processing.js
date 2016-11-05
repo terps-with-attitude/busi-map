@@ -10,7 +10,7 @@ function processPlaces(placeMap)
 	 	for (var place in placeMap.get(category)) 
 	 	{
 	 		var placeMarker = new google.maps.Marker({
-	 			map : null,
+	 			map : null,	
 	 			position : place.geometry.location 
 	 		});
 	 		outputArray.push(placeMarker);
@@ -25,7 +25,7 @@ function processPlaces(placeMap)
 // creates map to be displayed.
 function createMap(categoryArray, markerMap)
 {
-	var map = new google.maps.Map(document.getElementById('map'), {
+	var map = new google.maps.Map(document.getElementById('map-container'), {
 		zoom: 12,
 		center: {lat: 38.907864, lng:  -77.072151}
 	});
