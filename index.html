@@ -20,17 +20,21 @@
 	<style>
 		
 		#map-container { height: 100% }
+		#mapa {height: 0%}
 
 	</style>
 
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEN08blnUdsHk1DwIlV8h-ppLCsBDMJuE&callback=initMap&libraries=places"
+    async defer></script>
+
+
+
   </head>
 
-  <script src = "">
 
-  </script>
 
   <body>
-  
+  	
   	<script type="text/javascript">
   		
 	
@@ -38,17 +42,19 @@
 
   		function boxClicked(){
   				var items = document.getElementsByTagName("input");
-  				var activeCategories = string[0];
+  				var activeCategories = new Array();
   				var pos = 0;
   			for(var i = 0; i < items.length; i++){
 
-  			if ($('input#items[i]').is(':checked')) {
-       			 activeCategories[pos++] = items[i].name;
-    		}
+  				if( $('.food').is(':checked') ){
+  					activeCategories[i] = items[i].name;
+  				}
 
-  		  }
+  		  } 
 
-  		  creatMap(activeCategories, markerMap);
+  		  
+
+  		  createMap(activeCategories, processPlaces(pullInData()));
   		}
 
   	</script>
@@ -62,9 +68,9 @@
     	<div class="input-group">
 
       				<ul id = "categories" style="list-style-type:none">
-        			<li><input type="checkbox" onclick="boxClicked();" name ="fine dining"> fine dining</li> 
-        			<li><input type="checkbox" onclick="boxClicked()"  name="fast food"> fast food</li>
-        			<li><input type="checkbox" onclick="boxClicked()"   name="buffet"> buffet</li>
+        			<li><input type="checkbox" onclick="boxClicked()" name ="fine dining" class = "food"> fine dining</li> 
+        			<li><input type="checkbox" onclick="boxClicked()"  name="fast food" class = "food"> fast food</li>
+        			<li><input type="checkbox" onclick="boxClicked()"   name="buffet" class = "food"> buffet</li>
         			</ul>
      		
     	</div><!-- /input-group -->
@@ -86,13 +92,19 @@
 
   </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEN08blnUdsHk1DwIlV8h-ppLCsBDMJuE&callback=initMap"
-    async defer></script>
+	<script src = categories.js></script>
+  	<script src = processing.js></script>
+  	<script src = "pullInData.js"></script>
+    
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins -->
     <script src="js/bootstrap.min.js"></script>
+
+
+
+    <div id = "mapa" class = "col-lg-0"></div>
 
   </body>
 
