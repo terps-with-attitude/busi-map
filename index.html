@@ -2,14 +2,96 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BusiMap</title>
+    <style>
+    	
+	html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+    </style>
+
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<style>
+		
+		#map-container { height: 100% }
+
+	</style>
 
   </head>
 
   
 
   <body>
-    
+  
+  	<script type="text/javascript">
+  		
+	
+	
+
+  		function boxClicked(){
+  				var items = document.getElementsByTagName("input");
+  				var activeCategories = string[0];
+  				var pos = 0;
+  			for(var i = 0; i < items.length; i++){
+
+  			if ($('input#items[i]').is(':checked')) {
+       			 activeCategories[pos++] = items[i].name;
+    		}
+
+  		  }
+
+  		  creatMap(activeCategories, markerMap);
+  		}
+
+  	</script>
+  
+  	<!-- Fast food, fine dining, buffet-->
+  
+
+  	<div id="map-container" class="col-lg-9"></div>
+  
+	<div class="col-lg-3">
+    	<div class="input-group">
+
+      				<ul id = "categories" style="list-style-type:none">
+        			<li><input type="checkbox" onclick="boxClicked();" name ="fine dining"> fine dining</li> 
+        			<li><input type="checkbox" onclick="boxClicked()"  name="fast food"> fast food</li>
+        			<li><input type="checkbox" onclick="boxClicked()"   name="buffet"> buffet</li>
+        			</ul>
+     		
+    	</div><!-- /input-group -->
+  	</div><!-- /.col-lg-1 -->
+
+
+
+  	<!-- this is where the map is created and added-->
+  <script type="text/javascript">
+  	
+  	 var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map-container'), {
+          center: {lat: 38.907864, lng:  -77.072151},
+          zoom: 12
+        });
+      }
+
+
+  </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEN08blnUdsHk1DwIlV8h-ppLCsBDMJuE&callback=initMap"
+    async defer></script>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins -->
+    <script src="js/bootstrap.min.js"></script>
+
   </body>
 
 
