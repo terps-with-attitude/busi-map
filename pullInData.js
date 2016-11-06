@@ -109,7 +109,6 @@
         for(marker in markerArray)
         {
           markerArray[marker].setMap(null);
-          console.log("blah");
         }
 
         markerArray = [];
