@@ -54,43 +54,50 @@
     <!-- This is the script to run when you add category -->
     <script type="text/javascript">
 
-    var placeMap = new Map();
     var markerArray = new Array();
     var numberOfChecks = 0;
     var addCategory = function () {
-      
-      if(numberOfChecks < 11 && document.getElementById("checkboxName").value != "") {
-        var newCheckbox = document.createElement("input");
-        var newIcon = document.createElement("input")
-        newCheckbox.type = "checkbox";
-        newIcon.type = "img";
-        newIcon.id = numberOfChecks;
-        newCheckbox.value = document.getElementById("checkboxName").value;
-        newCheckbox.name = document.getElementById("checkboxName").value;
-        newCheckbox.onclick   = function(){
-        
-          var location = {lat: 38.907864, lng:  -77.072151}
-          var items = document.getElementsByTagName("input");
-          var activeCategories = new Array();
-          var pos = 0;
+        if(numberOfChecks < 10 && document.getElementById("checkboxName").value != "" &&
+        (Object.keys(document.getElementsByTagName("input"))).indexOf(document.getElementById("checkboxName").value) == -1) {
+          var newCheckbox = document.createElement("input");
+          var newIcon = document.createElement("img");
+          newCheckbox.type = "checkbox";
+            newIcon.type = "markericon";
+          newIcon.id = numberOfChecks;
+          newIcon.src = 'markers/' + newIcon.id + '.png';
+          newCheckbox.value = document.getElementById("checkboxName").value;
+          newCheckbox.name = document.getElementById("checkboxName").value;
+          newCheckbox.onclick = function () {
 
-          for(var i = 0; i < items.length; i++){
-            if(items[i].checked){
-              activeCategories[i] = items[i].name;
-            }
-          } 
-          pullInData(location, activeCategories, markerArray, placeMap, map);
-        };
-        
-        document.getElementById("categories").appendChild(newIcon);
-        document.getElementById("categories").appendChild(newCheckbox);
+              var location = {lat: 38.907864, lng: -77.072151}
+              var items = document.getElementsByTagName("input");
+              var activeCategories = new Array();
 
-        var label = document.createElement("text");
-        label.htmlFor = document.getElementById("checkboxName").value;
-        label.appendChild(document.createTextNode(document.getElementById("checkboxName").value));
+              var images = Object.keys(document.getElementsByTagName("img"));
+              images = images.slice(images.length-numberOfChecks, images.length);
+              var idArray = new Array();
+              var dict = {};
+              for (var i = 0; i < items.length; i++) {
+                  if (items[i].checked) {
+                      var name = items[i].name;
+                      activeCategories[i] = name;
+                      dict[name] = images[i-1];
+                  }
+              }
 
-        document.getElementById("categories").appendChild(label);
-        document.getElementById("categories").appendChild(document.createElement("br"));
+              pullInData(location, activeCategories, markerArray, map, dict);
+          };
+
+          document.getElementById("categories").appendChild(newIcon);
+          document.getElementById("categories").appendChild(newCheckbox);
+
+          var label = document.createElement("text");
+          label.htmlFor = document.getElementById("checkboxName").value;
+          label.appendChild(document.createTextNode(document.getElementById("checkboxName").value));
+
+          document.getElementById("categories").appendChild(label);
+          document.getElementById("categories").appendChild(document.createElement("br"));
+          numberOfChecks++;
       }
     }
 
@@ -103,7 +110,7 @@
         <strong>What category of business would you like to track?</strong><br>
   
         <div class = "input-group input-group-lg">
-          <input class="form-control" id="checkboxName" placeholder="Enter business category here." style="font-family: verdana; font-size: 75%; width: 325px" type="text">
+          <input class="form-control" id="checkboxName" placeholder="Enter business category here." style="font-family: verdana; font-size: 75%; width: 200px" type="text">
           <button id = add type="button" onclick="addCategory()" class="btn btn-default" style="font-family: verdana; height: 130%;">Add</button>
         </div>
         <br>
@@ -127,7 +134,6 @@
 
   </script>
 
-	<script src = categories.js></script>
   <script src = "pullInData.js"></script>
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
