@@ -1,9 +1,9 @@
 var infowindow;
-function pullInData(location, categories, markerArray, placeDict, circleArray, googleMap, idcategorydict) {
+function pullInData(location, categories, markerArray, placeDict, circleArray, googleMap, idcategorydict, ) {
     var dcLocation = location;
     infowindow = new google.maps.InfoWindow();
     var service = new google.maps.places.PlacesService(googleMap);
-    clearAll(markerArray);
+    clearAll(markerArray, circleArray);
     for (category in categories) {
         var request = {
             location: dcLocation,
