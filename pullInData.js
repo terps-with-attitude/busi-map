@@ -58,7 +58,7 @@
 		var infowindow;
 		
 
-      	function pullInData(location, categories, markerArray, placeDict, googleMap) {
+      	function pullInData(location, categories, markerArray, placeDict, circleArray, googleMap) {
         var dcLocation = location;
         
         
@@ -67,7 +67,7 @@
         var service = new google.maps.places.PlacesService(googleMap);
 
 
-        clearAll(markerArray);
+        clearAll(markerArray,circleArray);
         for (category in categories) {
         	//console.log(categories[category]);
 
@@ -78,7 +78,7 @@
 				query: categories[category]
         	}
 
-      		service.textSearch(request, callbackCreator(categories[category], markerArray, placeDict, googleMap));
+      		service.textSearch(request, callbackCreator(categories[category], markerArray, placeDict, circleArray, googleMap));
       		// for(place in dict.get(categories[category]))
       		// {
       		// 	console.log(dict.get(categories[category])[place]);
@@ -88,7 +88,7 @@
         
       }
 
-      function callbackCreator(category, markerArray, placeDict, googleMap)
+      function callbackCreator(category, markerArray, placeDict, circleArray, googleMap)
       {
       	return function(results, status) {
       		if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -96,15 +96,25 @@
               for(place in results){
                               
                 markerArray.push( new google.maps.Marker({
-                 map : map, 
+                 map : googleMap, 
                  position : results[place].geometry.location 
+                }));
+                circleArray.push( new google.maps.Circle({
+                  strokeColor: '#8A2BE2',
+                  strokeOpacity: 0.8,
+                  strokeWeight: 2,
+                  fillColor: '#8A2BE2',
+                  fillOpacity: 0.15,
+                  map: googleMap,
+                  center: results[place].geometry.location ,
+                  radius: 2000 //subject to change
                 }));
               }
       		}
       	}
       }
 
-      function clearAll(markerArray) {
+      function clearAll(markerArray, circleArray) {
 
         for(marker in markerArray)
         {
@@ -112,6 +122,13 @@
         }
 
         markerArray = [];
+
+        for(circle in circleArray)
+        {
+          circleArray[circle].setMap(null);
+        }
+
+        circleArray = [];
 
       }
 

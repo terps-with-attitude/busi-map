@@ -55,6 +55,7 @@
   	<script type="text/javascript">
       var placeMap = new Map();
       var markerArray = new Array();
+      var circleArray = new Array();
   		function boxClicked(){
           var location = {lat: 38.907864, lng:  -77.072151}
   				var items = document.getElementsByTagName("input");
@@ -66,7 +67,7 @@
   					activeCategories[i] = items[i].name;
   				}
   		  } 
-  		  pullInData(location, activeCategories, markerArray, placeMap, map);
+  		  pullInData(location, activeCategories, markerArray, placeMap, circleArray, map);
   		}
 
   	</script>
