@@ -7,8 +7,7 @@ function pullInData(location, categories, markerArray, placeDict, circleArray, g
     for (category in categories) {
         var request = {
             location: dcLocation,
-            type: "restaurant",
-            radius: 2000,
+            radius: 1000,
             query: categories[category]
         }
 
@@ -26,16 +25,17 @@ function callbackCreator(category, markerArray, placeDict, circleArray, googleMa
 {
 	return function(results, status, paginator) {
 		if (status === google.maps.places.PlacesServiceStatus.OK) {
-        var icon = 'markers/' + idcategorydict[category] + '.png';
+      
+        console.log(category);
+        icon = idcategorydict.get(category);
+        console.log(icon);
     		placeDict.set(category, results);
         for(place in results){
-                        
-          markerArray.push( new google.maps.Marker({
+          marker = new google.maps.Marker({
            map : googleMap,
            icon: icon, 
            position : results[place].geometry.location 
-          }));
-
+          });
           google.maps.event.addListener(marker, 'click', function () {
             var name = place.name;
             var rating = place.rating;
@@ -43,6 +43,10 @@ function callbackCreator(category, markerArray, placeDict, circleArray, googleMa
             infowindow.setContent(html);
             infowindow.open(map, this);
           });
+          markerArray.push(marker);
+          console.log(marker.icon);
+
+          
 
           circleArray.push( new google.maps.Circle({
             strokeColor: '#8A2BE2',
@@ -54,7 +58,7 @@ function callbackCreator(category, markerArray, placeDict, circleArray, googleMa
             center: results[place].geometry.location ,
             radius: 2000 //subject to change
           }));
-          while(paginator.hasnext)
+          if(paginator.hasnext)
           {
             paginator.next();
           }

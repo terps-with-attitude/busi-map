@@ -59,9 +59,12 @@
     var markerArray = new Array();
     var circleArray = new Array();
     var numberOfChecks = 0;
-    var location = {lat: 38.907864, lng:  -77.072151}
+    var images = new Map();
+    var colors = new Map();
 
     var addCategory = function () {
+        var location = {lat: 38.907864, lng:  -77.072151};
+        var colorArray = ["","","","","","","","","",""];
         if(numberOfChecks < 10 && document.getElementById("checkboxName").value != "" &&
         (Object.keys(document.getElementsByTagName("input"))).indexOf(document.getElementById("checkboxName").value) == -1) {
           var newCheckbox = document.createElement("input");
@@ -70,27 +73,22 @@
             newIcon.type = "markericon";
           newIcon.id = numberOfChecks;
           newIcon.src = 'markers/' + newIcon.id + '.png';
+          //console.log(newIcon.src);
           newCheckbox.value = document.getElementById("checkboxName").value;
           newCheckbox.name = document.getElementById("checkboxName").value;
-          newCheckbox.onclick = function () {
 
-              var location = {lat: 38.907864, lng: -77.072151}
+          images.set(newCheckbox.name,newIcon.src);
+          console.log(images);
+          newCheckbox.onclick = function () {
               var items = document.getElementsByTagName("input");
               var activeCategories = new Array();
-
-              var images = Object.keys(document.getElementsByTagName("img"));
-              images = images.slice(images.length-numberOfChecks, images.length);
-              var idArray = new Array();
-              var dict = {};
-              for (var i = 0; i < items.length; i++) {
+               for (var i = 0; i < items.length; i++) {
                   if (items[i].checked) {
                       var name = items[i].name;
                       activeCategories[i] = name;
-                      dict[name] = images[i-1];
                   }
               }
-
-              pullInData(location, activeCategories, markerArray, placeMap, circleArray, map, dict);
+              pullInData(location, activeCategories, markerArray, placeMap, circleArray, map, images);
           };
 
           document.getElementById("categories").appendChild(newIcon);
@@ -102,9 +100,10 @@
 
           document.getElementById("categories").appendChild(label);
           document.getElementById("categories").appendChild(document.createElement("br"));
+          console.log(numberOfChecks);
           numberOfChecks++;
       }
-    }
+    };
 
     </script>
 
