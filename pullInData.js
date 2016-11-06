@@ -58,18 +58,16 @@
 		var infowindow;
 		
 
-      	function pullInData(location, categories, callback) {
+      	function pullInData(location, categories, markerArray, placeDict, googleMap) {
         var dcLocation = location;
-        var dict = new Map();
-
-        googleMap = new google.maps.Map(document.getElementById('map-container'),{
-        	center : dcLocation,
-        	zoom : 12
-        });
+        
+        
 
         infowindow = new google.maps.InfoWindow();
         var service = new google.maps.places.PlacesService(googleMap);
 
+
+        clearAll(markerArray);
         for (category in categories) {
         	//console.log(categories[category]);
 
@@ -80,7 +78,7 @@
 				query: categories[category]
         	}
 
-      		service.textSearch(request, callbackCreator(categories[category], dict));
+      		service.textSearch(request, callbackCreator(categories[category], markerArray, placeDict, googleMap));
       		// for(place in dict.get(categories[category]))
       		// {
       		// 	console.log(dict.get(categories[category])[place]);
@@ -88,22 +86,35 @@
         }
 
         
-        return dict;
       }
 
-      function callbackCreator(category, dictionary)
+      function callbackCreator(category, markerArray, placeDict, googleMap)
       {
       	return function(results, status) {
       		if (status === google.maps.places.PlacesServiceStatus.OK) {
-          		easyA(dictionary,category,results);
-          		console.log(category + "   " + results);
-
-          		// for(place in results)
-          		// {
-          		// 	console.log(results[place]);
-          		// }
+          		placeDict.set(category, results);
+              for(place in results){
+                              
+                markerArray.push( new google.maps.Marker({
+                 map : map, 
+                 position : results[place].geometry.location 
+                }));
+              }
       		}
       	}
       }
+
+      function clearAll(markerArray) {
+
+        for(marker in markerArray)
+        {
+          markerArray[marker].setMap(null);
+          console.log("blah");
+        }
+
+        markerArray = [];
+
+      }
+
 
       
