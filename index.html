@@ -36,7 +36,7 @@
 
   <body>
     <div class="page-header">
-      <h3 style="font-family: verdana; font-size: 170%;" id="header1"><strong>
+      <h3 style="font-family: verdana; font-size: 150%;" id="header1"><strong>
         <div class="media"></div>
         <div class="media-left">
           <a href="#">
@@ -51,96 +51,68 @@
       </strong><small><strong></strong></small></h3>
     </div>
   	
-
-    <!-- This is the script to run when a check box is clicked -->
-  	<script type="text/javascript">
-      var placeMap = new Map();
-      var markerArray = new Array();
-  		function boxClicked(){
-        console.log("ashdf");
-          var location = {lat: 38.907864, lng:  -77.072151}
-  				var items = document.getElementsByTagName("input");
-  				var activeCategories = new Array();
-  				var pos = 0;
-
-  			for(var i = 0; i < items.length; i++){
-  				if(items[i].checked){
-  					activeCategories[i] = items[i].name;
-  				}
-  		  } 
-  		  pullInData(location, activeCategories, markerArray, placeMap, map);
-  		}
-
-  	</script>
-  
     <!-- This is the script to run when you add category -->
     <script type="text/javascript">
-      
 
     var placeMap = new Map();
-      var markerArray = new Array();
-
-
+    var markerArray = new Array();
     var numberOfChecks = 0;
     var addCategory = function () {
       
-      if(numberOfChecks < 10 && document.getElementById("checkboxName").value != ""){
-      var newCheckbox = document.createElement("input");
-      newCheckbox.type = "checkbox";
-      newCheckbox.value = document.getElementById("checkboxName").value;
-      newCheckbox.name = document.getElementById("checkboxName").value;
-      newCheckbox.onclick   = function(){
+      if(numberOfChecks < 11 && document.getElementById("checkboxName").value != "") {
+        var newCheckbox = document.createElement("input");
+        var newIcon = document.createElement("input")
+        newCheckbox.type = "checkbox";
+        newIcon.type = "img";
+        newIcon.id = numberOfChecks;
+        newCheckbox.value = document.getElementById("checkboxName").value;
+        newCheckbox.name = document.getElementById("checkboxName").value;
+        newCheckbox.onclick   = function(){
         
           var location = {lat: 38.907864, lng:  -77.072151}
           var items = document.getElementsByTagName("input");
           var activeCategories = new Array();
           var pos = 0;
 
-        for(var i = 0; i < items.length; i++){
-          if(items[i].checked){
-            activeCategories[i] = items[i].name;
-          }
-        } 
-        pullInData(location, activeCategories, markerArray, placeMap, map);
-      };
-      
-      document.getElementById("categories").appendChild(newCheckbox);
+          for(var i = 0; i < items.length; i++){
+            if(items[i].checked){
+              activeCategories[i] = items[i].name;
+            }
+          } 
+          pullInData(location, activeCategories, markerArray, placeMap, map);
+        };
+        
+        document.getElementById("categories").appendChild(newIcon);
+        document.getElementById("categories").appendChild(newCheckbox);
 
-      var label = document.createElement('strong');
-      label.htmlFor = document.getElementById("checkboxName").value;
-      label.appendChild(document.createTextNode(document.getElementById("checkboxName").value));
+        var label = document.createElement("text");
+        label.htmlFor = document.getElementById("checkboxName").value;
+        label.appendChild(document.createTextNode(document.getElementById("checkboxName").value));
 
-      document.getElementById("categories").appendChild(label);
-      document.getElementById("categories").appendChild(document.createElement("br"));
+        document.getElementById("categories").appendChild(label);
+        document.getElementById("categories").appendChild(document.createElement("br"));
+      }
     }
-
-      numberOfChecks++;
-    }
-
 
     </script>
 
   	<div id="map-container" class="col-lg-9"></div>
   
 	  <div class="col-lg-3">
-    	             <div class="input-group" style="font-family: verdana; font-size: 150%">
-              <strong>What category of business would you like to track?</strong><br>
+    	<div class="input-group" style="font-family: verdana; font-size: 150%">
+        <strong>What category of business would you like to track?</strong><br>
   
-         <div class = "input-group input-group-lg">
-
-           <input class="form-control" id="checkboxName" placeholder="Enter business category here." style="font-family: verdana; font-size: 75%; width: 300px" type="text">
-           <button id = add type="button" onclick="addCategory()"  class="btn btn-default" style="font-family: verdana; height: 130%;">Add</button>
-         </div>
+        <div class = "input-group input-group-lg">
+          <input class="form-control" id="checkboxName" placeholder="Enter business category here." style="font-family: verdana; font-size: 75%; width: 325px" type="text">
+          <button id = add type="button" onclick="addCategory()" class="btn btn-default" style="font-family: verdana; height: 130%;">Add</button>
+        </div>
         <br>
 
-      	<ul id = "categories" style="list-style: none; font-family: verdana; font-size: 100%;">
-          <!-- <li><input onclick="boxClicked()" name ="fine dining" class = "food" type="checkbox"><strong> Fine dining</strong></li> 
-        	<li><input type="checkbox" onclick="boxClicked()" name="fast food" class = "food"><strong> Fast food</strong></li>
-        	<li><input type="checkbox" onclick="boxClicked()" name="buffet" class = "food"><strong> Buffet</strong></li> -->
-      	</ul>
+        <strong>Categories:</strong>
+      	<ul id = "categories" style="list-style: none; font-family: verdana; font-size: 100%; PADDING-LEFT: 0px"></ul>
      		
     	</div><!-- /input-group -->
-  	</div><!-- /.col-lg-1 -->
+  	</div><!-- /.col-lg-3 -->
 
   	<!-- this is where the map is created and added-->
   <script type="text/javascript">
