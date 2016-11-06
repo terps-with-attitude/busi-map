@@ -89,7 +89,7 @@
 
       function callbackCreator(category, markerArray, placeDict, circleArray, googleMap)
       {
-      	return function(results, status) {
+      	return function(results, status, paginator) {
       		if (status === google.maps.places.PlacesServiceStatus.OK) {
           		placeDict.set(category, results);
               for(place in results){
@@ -108,6 +108,10 @@
                   center: results[place].geometry.location ,
                   radius: 2000 //subject to change
                 }));
+                while(paginator.hasnext)
+                {
+                  paginator.next();
+                }
               }
       		}
       	}
