@@ -73,7 +73,6 @@
 
         	var request = {
 				location: dcLocation,
-				type: "restaurant",
 				radius: 2000,
 				query: categories[category]
         	}
