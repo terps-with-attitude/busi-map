@@ -51,16 +51,11 @@
       </strong><small><strong></strong></small></h3>
     </div>
   	
-
     <!-- This is the script to run when you add category -->
     <script type="text/javascript">
 
-    var placeMap = new Map();
     var markerArray = new Array();
-    var circleArray = new Array();
     var numberOfChecks = 0;
-    var location = {lat: 38.907864, lng:  -77.072151}
-
     var addCategory = function () {
         if(numberOfChecks < 10 && document.getElementById("checkboxName").value != "" &&
         (Object.keys(document.getElementsByTagName("input"))).indexOf(document.getElementById("checkboxName").value) == -1) {
@@ -90,7 +85,7 @@
                   }
               }
 
-              pullInData(location, activeCategories, markerArray, placeMap, circleArray, map, dict);
+              pullInData(location, activeCategories, markerArray, map, dict);
           };
 
           document.getElementById("categories").appendChild(newIcon);

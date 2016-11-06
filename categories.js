@@ -1,1 +1,0 @@
-var categories = new Array("fast food", "fine dining", "buffet");
